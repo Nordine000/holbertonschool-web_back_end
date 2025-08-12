@@ -44,3 +44,5 @@ class Server:
         # Return the appropriate page, or an empty list
         if start >= len(dataset):
             return []
+        
+        return dataset[start:end]
