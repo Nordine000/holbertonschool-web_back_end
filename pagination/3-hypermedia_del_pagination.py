@@ -43,15 +43,15 @@ class Server:
         """ Return a page from the dataset starting at the given index """
         assert index is not None and 0 <= index < len(self.indexed_dataset())
         data = []
-        i = index
+        idx = index
         dataset = self.indexed_dataset()
-        while len(data) < page_size and i < len(dataset) + page_size:
-            if i in dataset:
-                data.append(dataset[i])
-                i += 1
+        while len(data) < page_size and idx < len(dataset) + page_size:
+            if idx in dataset:
+                data.append(dataset[idx])
+                idx += 1
         return {
             "index": index,
-            "next_index": i,
+            "next_index": idx,
             "page_size": len(data),
             "data": data
         }
