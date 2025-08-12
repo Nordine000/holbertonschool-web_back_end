@@ -28,14 +28,19 @@ class Server:
             self.__dataset = dataset[1:]
 
         return self.__dataset
-
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """Returns the correct page of the dataset."""
+
+        # Validate arguments
         assert isinstance(page, int) and page > 0, "Page must be a positive"
         assert isinstance(page_size, int) and page_size > 0, "positive"
-        dataset = self.dataset()
-        t, e = index_range(page, page_size)
-        if t >= len(dataset):
-            return []
 
-        return dataset[t:e]
+        # Get the dataset
+        dataset = self.dataset()
+
+        # Use index_range to find the correct indices
+        start, end = index_range(page, page_size)
+
+        # Return the appropriate page, or an empty list
+        if start >= len(dataset):
+            return []
