@@ -1,6 +1,6 @@
 import csv
 import math
-from typing import List
+from typing import List, Tuple
 
 
 def index_range(page, page_size):
@@ -31,8 +31,8 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """Returns the correct page of the dataset."""
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
+        assert isinstance(page, int) and page > 0, "Page must be a positive"
+        assert isinstance(page_size, int) and page_size > 0, "positive"
         t, e = index_range(page, page_size)
         dataset = self.dataset()
 
