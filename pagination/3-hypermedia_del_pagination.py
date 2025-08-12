@@ -55,3 +55,20 @@ class Server:
             "page_size": len(data),
             "data": data
         }
+
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        """ Return a page from the dataset starting at the given index """
+        assert index is not None and 0 <= index < len(self.indexed_dataset())
+        data = []
+        current_idx = index
+        dataset = self.indexed_dataset()
+        while len(data) < page_size and current_idx < len(dataset) + page_size:
+            if current_idx in dataset:
+                data.append(dataset[current_idx])
+            current_idx += 1
+        return {
+            "index": index,
+            "next_index": current_idx,
+            "page_size": len(data),
+            "data": data
+        }
