@@ -4,9 +4,10 @@ from typing import List
 
 
 def index_range(page, page_size):
-        t = (page - 1) * page_size
-        e = page * page_size
-        return t, e
+    """Returns a tuple of the start and end index for pagination."""
+    t = (page - 1) * page_size
+    e = page * page_size
+    return t, e
 
 
 class Server:
@@ -28,11 +29,11 @@ class Server:
 
         return self.__dataset
 
-
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-            assert isinstance(page, int) and page > 0
-            assert isinstance(page_size, int) and page_size > 0
-            t, e = index_range(page, page_size)
-            dataset = self.dataset()
+        """Returns the correct page of the dataset."""
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
+        t, e = index_range(page, page_size)
+        dataset = self.dataset()
 
-            return [] if t >= len(dataset) else dataset[t:e]
+        return [] if t >= len(dataset) else dataset[t:e]

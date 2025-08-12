@@ -4,9 +4,10 @@ from typing import List
 
 
 def index_range(page, page_size):
-        t = (page - 1) * page_size
-        e = page * page_size
-        return t, e
+    """Returns a tuple of the start and end index for pagination."""
+    t = (page - 1) * page_size
+    e = page * page_size
+    return t, e
 
 
 class Server:
@@ -28,24 +29,20 @@ class Server:
 
         return self.__dataset
 
-
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-            assert isinstance(page, int) and page > 0
-            assert isinstance(page_size, int) and page_size > 0
-            t, e = index_range(page, page_size)
-            dataset = self.dataset()
+        """Returns the correct page of the dataset."""
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
+        t, e = index_range(page, page_size)
+        dataset = self.dataset()
+        return [] if t >= len(dataset) else dataset[t:e]
 
-            return [] if t >= len(dataset) else dataset[t:e]
-        
     def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
+        """Returns a dictionary containing pagination info."""
         data = self.get_page(page, page_size)
-        
-        all_pages = math.ceil(len(self.dataset()) / page_size )
-        
+        all_pages = math.ceil(len(self.dataset()) / page_size)
         prev_page = page - 1 if page > 1 else None
         next_page = page + 1 if page < all_pages else None
-        
-                # Return a dictionary with pagination information
         return {
             "page_size": len(data),
             "page": page,
