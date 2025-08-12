@@ -1,13 +1,15 @@
+#!/usr/bin/env python3
+"""Simple pagination module."""
 import csv
 import math
 from typing import List, Tuple
 
 
-def index_range(page, page_size):
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """Returns a tuple of the start and end index for pagination."""
-    t = (page - 1) * page_size
-    e = page * page_size
-    return t, e
+    start = (page - 1) * page_size
+    end = start + page_size
+    return start, end
 
 
 class Server:
@@ -26,8 +28,8 @@ class Server:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
             self.__dataset = dataset[1:]
-
         return self.__dataset
+
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """Returns the correct page of the dataset."""
 
@@ -44,5 +46,4 @@ class Server:
         # Return the appropriate page, or an empty list
         if start >= len(dataset):
             return []
-        
         return dataset[start:end]
