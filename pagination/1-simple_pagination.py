@@ -33,7 +33,9 @@ class Server:
         """Returns the correct page of the dataset."""
         assert isinstance(page, int) and page > 0, "Page must be a positive"
         assert isinstance(page_size, int) and page_size > 0, "positive"
-        t, e = index_range(page, page_size)
         dataset = self.dataset()
+        t, e = index_range(page, page_size)
+        if t >= len(dataset):
+            return []
 
-        return [] if t >= len(dataset) else dataset[t:e]
+        return dataset[t:e]

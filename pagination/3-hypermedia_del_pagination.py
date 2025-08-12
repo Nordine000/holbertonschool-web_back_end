@@ -43,32 +43,15 @@ class Server:
         """ Return a page from the dataset starting at the given index """
         assert index is not None and 0 <= index < len(self.indexed_dataset())
         data = []
-        idx = index
+        i = index
         dataset = self.indexed_dataset()
-        while len(data) < page_size and idx < len(dataset) + page_size:
-            if idx in dataset:
-                data.append(dataset[idx])
-                idx += 1
+        while len(data) < page_size and i < len(dataset) + page_size:
+            if i in dataset:
+                data.append(dataset[i])
+                i += 1
         return {
             "index": index,
-            "next_index": idx,
-            "page_size": len(data),
-            "data": data
-        }
-
-    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
-        """ Return a page from the dataset starting at the given index """
-        assert index is not None and 0 <= index < len(self.indexed_dataset())
-        data = []
-        current_idx = index
-        dataset = self.indexed_dataset()
-        while len(data) < page_size and current_idx < len(dataset) + page_size:
-            if current_idx in dataset:
-                data.append(dataset[current_idx])
-            current_idx += 1
-        return {
-            "index": index,
-            "next_index": current_idx,
+            "next_index": i,
             "page_size": len(data),
             "data": data
         }
