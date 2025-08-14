@@ -1,3 +1,6 @@
 // liste tous les documents avec le nom "Holberton school"
 // dans la collection "school"
-db.school.fin({"name": "Holberton school"})
+db.school.find({name: "Holberton school"})
+
+// Exit the MongoDB shell gracefully
+exit
