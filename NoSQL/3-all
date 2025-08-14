@@ -1,0 +1,6 @@
+// Liste toute de la collection de school, info listcollection sert a lister
+// les collection d'une base de donné et find sert a liste ce qu'il y a ds la
+//colection
+db.school.find()
+// Exit the MongoDB shell gracefully
+exit
