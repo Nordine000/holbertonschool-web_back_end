@@ -1,5 +1,5 @@
 // A simple script to list all databases in the MongoDB shell
-show dbs;
+show dbs
 
 // Exit the MongoDB shell gracefully
-exit;
+exit
