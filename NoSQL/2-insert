@@ -1,0 +1,8 @@
+// Insère un document dans la collection school avec comme attribut name
+db.school.insert(
+    {
+        "name": "Holberton School"
+    }
+)
+// Exit the MongoDB shell gracefully
+exit
