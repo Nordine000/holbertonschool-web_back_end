@@ -4,5 +4,3 @@ db.school.insert(
         name:"Holberton School"
     }
 )
-// Exit the MongoDB shell gracefully
-exit
