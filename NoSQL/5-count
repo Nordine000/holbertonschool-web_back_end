@@ -1,6 +1,6 @@
 //affiche le nombre de documents dans la collection
 //ne pas utiliser count mais countDocuments qui est la meilleur methode
-db.school.countDocuments()
+db.school.count()
 
 // Exit the MongoDB shell gracefully
 exit
