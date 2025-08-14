@@ -1,0 +1,5 @@
+// Utilise une base donner deja creer ou use permet de creer une
+// base de données en lui inserant bien sur au moins une donnée
+use my_db
+// Exit the MongoDB shell gracefully
+exit
