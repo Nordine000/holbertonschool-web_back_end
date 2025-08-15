@@ -1,0 +1,5 @@
+// Supprime tous les documents avec name = "Holberton school"
+db.school.deleteMany({ name: "Holberton school" })
+
+// Quitte proprement le shell MongoDB
+exit
