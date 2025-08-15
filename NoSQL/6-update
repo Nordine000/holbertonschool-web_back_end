@@ -1,8 +1,7 @@
 //ajoute un nouvel attribut à un document dans la collection school
-db.school.updateMany(
+db.school.update(
     {name: "Holberton school"},
     {$set: {address: "972 Mission street"}},
-    { multi: true}
 )
 
 // Exit the MongoDB shell gracefully
