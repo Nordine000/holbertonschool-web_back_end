@@ -2,7 +2,7 @@ const express = require('express');
 const fs = require('fs');
 
 const app = express();
-const PORT = 1245;
+const port = 1245;
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
@@ -12,20 +12,23 @@ function countStudents(path) {
         return;
       }
 
-      const lines = data.trim().split('\n');
-      const students = lines
-        .filter((line, index) => line && index !== 0) // skip header, ignore empty lines
-        .map((line) => line.split(','));
+      const lines = data.split('\n').filter(line => line.trim() !== '');
+      const students = lines.slice(1);
 
-      const groups = {};
+      const fields = {};
       for (const student of students) {
-        const field = student[3];
-        if (!groups[field]) groups[field] = [];
-        groups[field].push(student[0]);
+        const parts = student.split(',');
+        const name = parts[0];
+        const field = parts[3];
+
+        if (field) {
+          if (!fields[field]) fields[field] = [];
+          fields[field].push(name);
+        }
       }
 
       let output = `Number of students: ${students.length}`;
-      for (const [field, names] of Object.entries(groups)) {
+      for (const [field, names] of Object.entries(fields)) {
         output += `\nNumber of students in ${field}: ${names.length}. List: ${names.join(', ')}`;
       }
 
@@ -34,27 +37,23 @@ function countStudents(path) {
   });
 }
 
-// Route: /
+// Route racine
 app.get('/', (req, res) => {
   res.send('Hello Holberton School!');
 });
 
-// Route: /students
+// Route /students
 app.get('/students', async (req, res) => {
   const database = process.argv[2];
-  if (!database) {
-    res.status(500).send('Cannot load the database');
-    return;
-  }
-
   try {
-    const studentSummary = await countStudents(database);
-    res.send(`This is the list of our students\n${studentSummary}`);
-  } catch (err) {
-    res.status(500).send(err.message);
+    const result = await countStudents(database);
+    res.send(`This is the list of our students\n${result}`);
+  } catch (error) {
+    res.send(`This is the list of our students\n${error.message}`);
   }
 });
 
-app.listen(PORT);
+// Démarrage du serveur
+app.listen(port);
 
 module.exports = app;
